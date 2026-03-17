@@ -6,43 +6,51 @@ This repository hosts production release assets for limerIQ:code. Source impleme
 
 ## Product Overview
 
-limerIQ:code turns ad-hoc prompting into repeatable workflow execution.
+limerIQ:code is the governed execution layer for AI-native software delivery.
 
-Instead of asking one model to do everything in a chat thread, teams define multi-step workflows in YAML that combine:
+It turns one-off prompting into reusable workflows that can run in VS Code, in the terminal, or headlessly in CI and automation environments.
 
-- agentic AI reasoning
-- deterministic execution steps (code, validation, git)
-- approval and interactive checkpoints
-- parallel branches with isolated git worktrees
-- provider-native permission controls
+Instead of asking one model to do everything in a chat thread, teams define multi-step workflows in YAML that coordinate:
 
-The result is a workflow system that is auditable, reproducible, and safer to scale across engineering teams.
+- the latest Claude, Codex, Gemini, and Kimi-Code models
+- agentic reasoning plus deterministic execution steps
+- code, validation, git, approval, and interactive checkpoints
+- cross-repo routing and isolated threads/worktrees
+- provider-native permission controls, sandboxing, and execution provenance
+
+The result is a workflow runtime that is reviewable, reproducible, and governable enough to use in real engineering operations.
+
+## Why Teams Use It
+
+- Use the model subscriptions you already have instead of buying a separate orchestration layer
+- Turn repeated engineering work into reusable workflows instead of repeating prompts by hand
+- Combine AI steps with tests, validation, git operations, approval gates, and trust-chain steps in one runtime
+- Keep human oversight where it matters without giving up automation
+- Preserve evidence and delivery context instead of losing trust when the chat window closes
 
 ## Core Platform Capabilities
 
-- Multi-provider routing across Claude, GPT-5 (Codex transport), and Gemini
-- 14 production step types for authoring (task, approval, code, git, validation, interactive, workflow-switch, parallel/integration/consensus/sprint gateways, plus trust-chain steps)
-- Persona + prompt-template system for role-specific behavior
-- Variable-driven pipelines where outputs flow between steps
-- Human-in-the-loop approvals and interactive sessions
-- Parallel and multi-repo execution using isolated worktrees
+- Multi-provider routing across the latest Claude, Codex, Gemini, and Kimi-Code models
+- 14 production step types for authoring, including trust-chain steps
+- Agent guardrails that can enforce required outputs, expected file actions, retry loops, JSON-schema checks, and code-based compliance checks
+- Human-in-the-loop approvals, interactive sessions, and provider-native permission brokering
+- Cross-repo orchestration with explicit repo scopes and workflow handoff context
+- Threads as the user-facing execution model, backed by isolated git worktrees
+- Team workflow repos for canonical, Git-reviewed shared workflows plus local drafts
+- Sandboxed execution for worktree-scoped runs using Docker or Apple Container
+- Headless and autonomous runner support for CI, queue processing, approval routing, and reporter pipelines
+- Execution provenance via evidence bundles, proof-of-execution verification, and attestations
 - Marketplace workflow publishing and installation support
 - Runtime visualization via subway-map style execution graph
 
-## Architecture At A Glance
+## Current Release Highlights
 
-limerIQ:code uses a strict three-layer architecture:
-
-1. UI surfaces: VS Code extension + webviews
-2. CLI orchestration layer: lifecycle, permissions, routing, marketplace
-3. Execution engine: step handlers, context, variable resolution, workflow runtime
-
-Design rules:
-
-- CLI owns business logic
-- UI remains a thin presentation/control layer
-- Prompt behavior is template-driven (no hardcoded prompt logic)
-- Step handlers define capability boundaries
+- Workflows can fail closed when required outputs, files, or compliance checks are missing
+- Multi-repo work is explicit and policy-checked instead of improvised
+- One thread can own one primary workspace and attach additional repo worktrees over time
+- Unattended execution keeps the same guardrails, approval logic, and trust model as interactive execution
+- Sandboxed execution can run with staged provider auth instead of ambient host access
+- Evidence can be emitted, verified, and bound to run and delivery context
 
 ## Release Channels
 
@@ -80,8 +88,6 @@ To update, run the same command again:
 ```bash
 curl -fsSL https://limeriq.ai/install.sh | bash
 ```
-
-Note: as of March 1, 2026, unauthenticated requests to `https://limeriq.ai/install.sh` are redirecting to a sign-in HTML page rather than a shell script. If that remains true in your environment, install from GitHub release assets (`.deb` on Linux/WSL2).
 
 ## Manual Install From Release Assets
 
